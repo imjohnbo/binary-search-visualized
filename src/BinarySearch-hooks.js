@@ -21,7 +21,6 @@ function BinarySearch(props) {
     };
 
     return () => {
-      console.log('cleaning up...')
       clearInterval(timerID);
     };
   }, [props.array, props.delayMS, props.searchElement]);
