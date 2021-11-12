@@ -1,19 +1,61 @@
-import React, { useState } from 'reat';
+import React, { useState, useEffect } from 'react';
 import './BinarySearch.css';
+import { buildBinarySearchState } from './helpers';
 
 function BinarySearch(props) {
-  const [state, getNextState] = useState({});
 
-  // props.delayMS
-  // props.array
-  // props.searchElement
+  const [step, setStep] = useState({});
 
-  const 
+  useEffect(() => {
+    const states = buildBinarySearchState(props.array, props.searchElement);
+    let stateIndex = 0;
+    const timerID = setInterval(incrementState, props.delayMS);
+
+    function incrementState() {
+      if (stateIndex < states.length) {
+        tick(states[stateIndex++]);
+      }
+      else {
+        clearInterval(timerID)
+      }
+    };
+
+    return () => {
+      console.log('cleaning up...')
+      clearInterval(timerID);
+    };
+  }, [props.array, props.delayMS, props.searchElement]);
+
+  function tick(s) {
+    setStep(s);
+  }
+
+  function getArrayRow() {
+    return props.array.map((value, index) =>
+      <div className={`block ${step.found === index ? 'found' : ''}`} key={index}>{value}</div>
+    );
+  }
+
+  function getDescriptionRow() {
+    return props.array.map((value, index) =>
+      <p key={index}>
+        {step.low === index ? 'low ⬆️ ' : ''}
+        {step.mid === index ? 'mid ⬆️ ' : ''}
+        {step.high === index ? 'high ⬆️ ' : ''}
+        {step.found === index ? 'found ⬆️ ' : ''}
+      </p>
+    );
+  }
 
   return (
-    <div class="row">
-      <div class="box"></div>
-    </div>
+    <React.Fragment>
+      <div className="row">
+        {getArrayRow()}
+      </div>
+      <div className="row">
+        {getDescriptionRow()}
+      </div>
+    </React.Fragment>
   );
 }
 

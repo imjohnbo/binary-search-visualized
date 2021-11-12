@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import BinarySearch from './BinarySearch';
+import BinarySearch from './BinarySearch-hooks';
 
 const array = [1, 2, 3];
 const searchElement = 1;
