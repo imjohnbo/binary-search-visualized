@@ -45,16 +45,17 @@ class BinarySearch extends Component {
 
     componentDidMount() {
         const states = buildBinarySearchState(this.props.array, this.props.searchElement);
-        const stateIndex = 0;
-
-        this.timerID = setInterval(() => {
+        let stateIndex = 0;
+        const incrementState = () => {
             if (stateIndex < states.length) {
-                this.tick(states[stateIndex]);
+                this.tick(states[stateIndex++]);
             }
             else {
                 clearInterval(this.timerID)
             }
-        }, this.props.delayMS);
+        };
+
+        this.timerID = setInterval(incrementState, this.props.delayMS);
     }
 
     componentWillUnmount() {
@@ -67,7 +68,12 @@ class BinarySearch extends Component {
 
     getRow() {
         return this.props.array.map((value, index) =>
-            <div className="block" key={index}>{value}</div>
+            <div 
+                className={`block ${this.state.low === index ? 'low' : ''} ${this.state.mid === index ? 'mid' : ''} ${this.state.high === index ? 'high' : ''} ${this.state.found === index ? 'found' : ''}`}
+                key={index}
+            >
+                {value}
+            </div>
         );
     }
 
