@@ -5,6 +5,7 @@ import BinarySearch from './BinarySearch-hooks';
 
 const array = [1, 2, 3];
 const searchElement = 1;
+const delayMS = 1000;
 
 ReactDOM.render(
   <React.StrictMode>
@@ -16,9 +17,9 @@ ReactDOM.render(
     </h2>
 
     <BinarySearch
-      delayMS='3000'
-      array={[1, 2, 3]}
-      searchElement={1}
+      delayMS={delayMS}
+      array={array}
+      searchElement={searchElement}
     />
   </React.StrictMode>,
   document.getElementById('root')

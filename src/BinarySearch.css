@@ -9,6 +9,10 @@ body {
   padding: 1rem;
 }
 
+.center {
+  text-align: center;
+}
+
 .block {
   border: 1px solid black;
   background-color: grey;
