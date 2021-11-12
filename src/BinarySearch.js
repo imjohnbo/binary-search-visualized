@@ -7,14 +7,7 @@ const buildBinarySearchState = (array, target) => {
     let high = array.length - 1;
     let mid = Math.floor((low + high) / 2);
     let found = -1;
-
-    // initial state
-    const states = [{
-        low,
-        mid,
-        high,
-        found
-    }];
+    const states = [];
 
     while (low <= high) {
         mid = Math.floor((low + high) / 2);
@@ -40,36 +33,36 @@ const buildBinarySearchState = (array, target) => {
         }
     }
 
-    return {
-        states,
-        found
-    };
+    return states;
 }
-
-const { states } = buildBinarySearchState(props.arr, props.searchElement);
 
 class BinarySearch extends Component {
     constructor(props) {
         super(props);
-        this.state = states[0];
+        this.state = {};
         this.getRow.bind(this);
     }
 
     componentDidMount() {
-        this.timerID = setInterval(
-            () => this.tick(),
-            this.props.delayMS
-        );
+        const states = buildBinarySearchState(this.props.array, this.props.searchElement);
+        const stateIndex = 0;
+
+        this.timerID = setInterval(() => {
+            if (stateIndex < states.length) {
+                this.tick(states[stateIndex]);
+            }
+            else {
+                clearInterval(this.timerID)
+            }
+        }, this.props.delayMS);
     }
 
     componentWillUnmount() {
         clearInterval(this.timerID);
     }
 
-    tick() {
-        this.setState({
-            date: new Date()
-        });
+    tick(state) {
+        this.setState(state);
     }
 
     getRow() {
