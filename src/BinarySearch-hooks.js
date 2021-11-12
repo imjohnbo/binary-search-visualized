@@ -12,6 +12,7 @@ function BinarySearch(props) {
     const timerID = setInterval(incrementState, props.delayMS);
 
     function incrementState() {
+      console.log('hey', stateIndex, states);
       if (stateIndex < states.length) {
         tick(states[stateIndex++]);
       }
@@ -51,7 +52,7 @@ function BinarySearch(props) {
       <div className="row">
         {getArrayRow()}
       </div>
-      <div className="row">
+      <div className="row center">
         {getDescriptionRow()}
       </div>
     </React.Fragment>

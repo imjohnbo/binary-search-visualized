@@ -55,7 +55,7 @@ class BinarySearch extends Component {
                 <div className="row">
                     {this.getArrayRow()}
                 </div>
-                <div className="row">
+                <div className="row center">
                     {this.getDescriptionRow()}
                 </div>
             </React.Fragment>
