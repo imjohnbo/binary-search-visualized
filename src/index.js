@@ -16,7 +16,7 @@ ReactDOM.render(
     </h2>
 
     <BinarySearch
-      delayMS='1000'
+      delayMS='3000'
       array={[1, 2, 3]}
       searchElement={1}
     />

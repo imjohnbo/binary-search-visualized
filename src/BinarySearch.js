@@ -1,46 +1,12 @@
 import React, { Component } from 'react';
 import './BinarySearch.css';
-
-// perform binary search and build up states necessary to do so
-const buildBinarySearchState = (array, target) => {
-    let low = 0;
-    let high = array.length - 1;
-    let mid = Math.floor((low + high) / 2);
-    let found = -1;
-    const states = [];
-
-    while (low <= high) {
-        mid = Math.floor((low + high) / 2);
-
-        if (array[mid] < target) {
-            low = mid + 1;
-        } else if (array[mid] > target) {
-            high = mid - 1;
-        }
-        else {
-            found = mid;
-        }
-
-        states.push({
-            low,
-            mid,
-            high,
-            found
-        });
-
-        if (found === mid) {
-            break;
-        }
-    }
-
-    return states;
-}
+import { buildBinarySearchState } from './helpers';
 
 class BinarySearch extends Component {
     constructor(props) {
         super(props);
         this.state = {};
-        this.getRow.bind(this);
+        this.getArrayRow.bind(this);
     }
 
     componentDidMount() {
@@ -66,22 +32,33 @@ class BinarySearch extends Component {
         this.setState(state);
     }
 
-    getRow() {
+    getArrayRow() {
         return this.props.array.map((value, index) =>
-            <div 
-                className={`block ${this.state.low === index ? 'low' : ''} ${this.state.mid === index ? 'mid' : ''} ${this.state.high === index ? 'high' : ''} ${this.state.found === index ? 'found' : ''}`}
-                key={index}
-            >
-                {value}
-            </div>
+            <div className={`block ${this.state.found === index ? 'found' : ''}`} key={index}>{value}</div>
+        );
+    }
+
+    getDescriptionRow() {
+        return this.props.array.map((value, index) =>
+            <p key={index}>
+                {this.state.low === index ? 'low ⬆️ ' : ''}
+                {this.state.mid === index ? 'mid ⬆️ ' : ''}
+                {this.state.high === index ? 'high ⬆️ ' : ''}
+                {this.state.found === index ? 'found ⬆️ ' : ''}
+            </p>
         );
     }
 
     render() {
         return (
-            <div className="row">
-                {this.getRow()}
-            </div>
+            <React.Fragment>
+                <div className="row">
+                    {this.getArrayRow()}
+                </div>
+                <div className="row">
+                    {this.getDescriptionRow()}
+                </div>
+            </React.Fragment>
         );
     }
 }
