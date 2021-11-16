@@ -2,13 +2,18 @@ import React, { useState, useEffect } from 'react';
 import './BinarySearch.css';
 import { buildBinarySearchState } from './helpers';
 
-function BinarySearch(props) {
+function BinarySearch({
+  searchArray = [],
+  searchElement = '',
+  delayMS = 1000,
+  ...props
+}) {
 
   const [step, setStep] = useState(0);
-  const states = buildBinarySearchState(props.array, props.searchElement);
+  const states = buildBinarySearchState(searchArray, searchElement);
 
   useEffect(() => {
-    const timerID = setInterval(incrementState, props.delayMS);
+    const timerID = setInterval(incrementState, delayMS);
 
     function incrementState() {
       if (step < states.length - 1) {
@@ -26,13 +31,13 @@ function BinarySearch(props) {
   });
 
   function getArrayRow() {
-    return props.array.map((value, index) =>
+    return searchArray.map((value, index) =>
       <div className={`block ${states[step].found === index ? 'found' : ''}`} key={index}>{value}</div>
     );
   }
 
   function getDescriptionRow() {
-    return props.array.map((value, index) =>
+    return searchArray.map((value, index) =>
       <p key={index}>
         {states[step].low === index ? 'low ⬆️ ' : ''}
         {states[step].mid === index ? 'mid ⬆️ ' : ''}
@@ -44,7 +49,7 @@ function BinarySearch(props) {
 
   return (
     <React.Fragment>
-      <div className="row">
+      <div className="row" {...props}>
         {getArrayRow()}
       </div>
       <div className="row center">

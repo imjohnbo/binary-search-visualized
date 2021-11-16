@@ -3,14 +3,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import BinarySearch from './BinarySearch-hooks';
 
-const array = [1, 2, 3];
+const searchArray = [1, 2, 3];
 const searchElement = 1;
 const delayMS = 1000;
 
 ReactDOM.render(
   <React.StrictMode>
     <h1>
-      Array: <code>{JSON.stringify(array)}</code>
+      Array: <code>{JSON.stringify(searchArray)}</code>
     </h1>
     <h2>
       Search element: <code>{searchElement}</code>
@@ -18,7 +18,7 @@ ReactDOM.render(
 
     <BinarySearch
       delayMS={delayMS}
-      array={array}
+      searchArray={searchArray}
       searchElement={searchElement}
     />
   </React.StrictMode>,
